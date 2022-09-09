@@ -1,0 +1,27 @@
+name: Ftp Deploy
+
+on:
+  workflow_call:
+    inputs:
+      server-dir:
+        required: true
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - name: Install Composer Depedencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: FTP Deploy to server
+        uses: SamKirkland/FTP-Deploy-Action@4.3.2
+        with:
+          server: gokeipsti.com.br
+          username: gokeipsticom
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: ${{ inputs.server-dir }}
