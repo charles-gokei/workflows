@@ -6,13 +6,12 @@ on:
       server:
         required: true
         type: string
-      username:
-        required: true
-        type: string
       server-dir:
         required: true
         type: string
-    secrets:
+      username:
+        required: true
+        type: string
       password:
         required: true
 
@@ -31,7 +30,7 @@ jobs:
         uses: SamKirkland/FTP-Deploy-Action@4.3.2
         with:
           server: ${{ inputs.server }}
-          username: ${{ inputs.username }}
           server-dir: ${{ inputs.server-dir }}
-          password: ${{ secrets.password }}
+          username: ${{ inputs.username }}
+          password: ${{ inputs.password }}
 
