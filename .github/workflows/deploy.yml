@@ -3,9 +3,18 @@ name: Ftp Deploy
 on:
   workflow_call:
     inputs:
+      server:
+        required: true
+        type: string
+      username:
+        required: true
+        type: string
       server-dir:
         required: true
         type: string
+    secrets:
+      password:
+        required: true
 
 jobs:
   build:
@@ -21,7 +30,8 @@ jobs:
       - name: FTP Deploy to server
         uses: SamKirkland/FTP-Deploy-Action@4.3.2
         with:
-          server: gokeipsti.com.br
-          username: gokeipsticom
-          password: ${{ secrets.FTP_PASSWORD }}
+          server: ${{ inputs.server }}
+          username: ${{ inputs.username }}
           server-dir: ${{ inputs.server-dir }}
+          password: ${{ secrets.password }}
+
