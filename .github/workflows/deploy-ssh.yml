@@ -1,0 +1,21 @@
+name: SSH Deploy
+
+on: 
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - name: SSH Deploy to server
+        uses: SamKirkland/web-deploy@v1
+        with:
+          target-server: 68.183.129.222
+          remote-user: root
+          private-ssh-key: {{ secrets.SSH_KEY }}
+          destination-path: /var/www/html/apps/
+
